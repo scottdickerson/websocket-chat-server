@@ -21,11 +21,13 @@ app.get('/api', (_req, res) => {
 
 io.on('connection', (socket) => {
   // send a message to the client
-  socket.emit('hello from server', 1, '2', { 3: Buffer.from([4]) });
+  console.log('a user connected');
+  socket.emit('hello from server', "I'm the server\n");
 
   // receive a message from the client
   socket.on('hello from client', (args) => {
     console.log('hello from client', args);
+    socket.emit('hello from server', `You said: ${args}\n`);
   });
 });
 
